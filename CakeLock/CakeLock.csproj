@@ -22,4 +22,13 @@
     <PackageReference Include="OpenCvSharp4.Windows" Version="4.2.0.20200208" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="C:\Users\cbh\.nuget\packages\dlibdotnet\19.18.0.20191202\build\..\runtimes\win-x64\native\DlibDotNetNative.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\cbh\.nuget\packages\dlibdotnet\19.18.0.20191202\build\..\runtimes\win-x64\native\DlibDotNetNativeDnn.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
