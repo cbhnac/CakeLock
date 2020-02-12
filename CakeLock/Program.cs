@@ -11,10 +11,11 @@ namespace CakeLock
 	{
 		private static VideoCapture capture = new VideoCapture(0);
 		private static Mat image = new Mat();
-		public static void Main(string[] args)
+
+		static void Main(string[] args)
 		{
 			Console.WriteLine("Starting Recognizer");
-			RecognizeFaceAndLock(capture, image);
+			RecognizeFaceAndLock();
 
 			SystemEvents.SessionSwitch += new Microsoft.Win32.SessionSwitchEventHandler(SystemEvents_SessionSwitch);
 			Console.ReadLine();
@@ -29,37 +30,36 @@ namespace CakeLock
 			else if (e.Reason == SessionSwitchReason.SessionUnlock)
 			{
 				Console.WriteLine("PC Unlocked");
-				RecognizeFaceAndLock(capture, image);
+				RecognizeFaceAndLock();
 			}
 		}
 
-		private static void RecognizeFaceAndLock(VideoCapture capture, Mat image)
+		private static void RecognizeFaceAndLock()
 		{
 			Console.WriteLine("Started looking for you.");
-			bool active = true;
-			var NoFaceCount = 0;
+			var active = true;
+			var noFaceCount = 0;
+			Bitmap bmp = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(image);
 			while (active)
 			{
 				capture.Read(image);
 				if (image.Empty())
 					break;
 
-				Bitmap bmp = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(image);
-
 				var faceDetected = FaceDetector(bmp);
 
 				if (faceDetected)
 				{
-					NoFaceCount = 0;
+					noFaceCount = 0;
 				}
 				else
 				{
-					NoFaceCount++;
+					noFaceCount++;
 				}
 
-				Console.WriteLine(faceDetected ? "Face detected: " + faceDetected : "Face detected: " + faceDetected + " - " + NoFaceCount);
+				Console.WriteLine(faceDetected ? "Face detected: " + faceDetected : "Face detected: " + faceDetected + " - " + noFaceCount);
 
-				if (NoFaceCount >= 25)
+				if (noFaceCount >= 25)
 				{
 					LockWorkStation();
 					active = false;
