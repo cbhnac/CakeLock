@@ -9,10 +9,7 @@ namespace CakeLock
 {
 	public class Program
 	{
-		private static VideoCapture capture = new VideoCapture(0);
-		private static Mat image = new Mat();
-
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
 			Console.WriteLine("Starting Recognizer");
 			RecognizeFaceAndLock();
@@ -37,14 +34,17 @@ namespace CakeLock
 		private static void RecognizeFaceAndLock()
 		{
 			Console.WriteLine("Started looking for you.");
+			var capture = new VideoCapture(0);
+			var image = new Mat();
 			var active = true;
 			var noFaceCount = 0;
-			var bmp = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(image);
 			while (active)
 			{
 				capture.Read(image);
 				if (image.Empty())
 					break;
+
+				var bmp = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(image);
 
 				var faceDetected = FaceDetector(bmp);
 
