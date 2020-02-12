@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
 using DlibDotNet;
 using OpenCvSharp;
 using Microsoft.Win32;
@@ -60,11 +61,12 @@ namespace CakeLock
 
 				Console.WriteLine(DateTime.Now.ToString("HH:mm:ss") + " - " + (faceDetected ? "Face detected" : "No face detected - " + noFaceCount));
 
-				if (noFaceCount >= 25)
+				if (noFaceCount >= 10)
 				{
 					LockWorkStation();
 					active = false;
 				}
+				Thread.Sleep(650);
 			}
 		}
 
