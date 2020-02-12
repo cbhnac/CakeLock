@@ -20,7 +20,7 @@ namespace CakeLock
 			Console.ReadLine();
 		}
 
-		public static void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+		private static void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
 		{
 			if (e.Reason == SessionSwitchReason.SessionLock)
 			{
@@ -33,7 +33,7 @@ namespace CakeLock
 			}
 		}
 
-		public static void RecognizeFaceAndLock(VideoCapture capture, Mat image)
+		private static void RecognizeFaceAndLock(VideoCapture capture, Mat image)
 		{
 			Console.WriteLine("Started looking for you.");
 			bool active = true;
@@ -67,7 +67,7 @@ namespace CakeLock
 			}
 		}
 
-		public static bool FaceDetector(Bitmap bmp)
+		private static bool FaceDetector(Bitmap bmp)
 		{
 			var rect = new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height);
 			var data = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bmp.PixelFormat);
@@ -86,6 +86,6 @@ namespace CakeLock
 		}
 
 		[DllImport("user32.dll")]
-		public static extern bool LockWorkStation();
+		private static extern bool LockWorkStation();
 	}
 }
