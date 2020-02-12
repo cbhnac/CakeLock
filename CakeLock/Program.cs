@@ -9,6 +9,9 @@ namespace CakeLock
 {
 	public class Program
 	{
+		private static VideoCapture capture = new VideoCapture(0);
+		private static Mat image = new Mat();
+
 		public static void Main(string[] args)
 		{
 			Console.WriteLine("Starting Recognizer");
@@ -34,8 +37,6 @@ namespace CakeLock
 		private static void RecognizeFaceAndLock()
 		{
 			Console.WriteLine("Started looking for you.");
-			var capture = new VideoCapture(0);
-			var image = new Mat();
 			var active = true;
 			var noFaceCount = 0;
 			while (active)
@@ -57,7 +58,7 @@ namespace CakeLock
 					noFaceCount++;
 				}
 
-				Console.WriteLine(faceDetected ? "Face detected: " + faceDetected : "Face detected: " + faceDetected + " - " + noFaceCount);
+				Console.WriteLine(DateTime.Now.ToString("HH:mm:ss") + " - " + (faceDetected ? "Face detected" : "No face detected - " + noFaceCount));
 
 				if (noFaceCount >= 25)
 				{
