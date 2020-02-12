@@ -39,7 +39,7 @@ namespace CakeLock
 			Console.WriteLine("Started looking for you.");
 			var active = true;
 			var noFaceCount = 0;
-			Bitmap bmp = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(image);
+			var bmp = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(image);
 			while (active)
 			{
 				capture.Read(image);
@@ -78,7 +78,6 @@ namespace CakeLock
 			using (var faceDetector = Dlib.GetFrontalFaceDetector())
 			{
 				var img = Dlib.LoadImageData<BgrPixel>(array, (uint)bmp.Height, (uint)bmp.Width, (uint)data.Stride);
-
 				var faces = faceDetector.Operator(img);
 
 				return faces.Length > 0; 
